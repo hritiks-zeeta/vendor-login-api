@@ -1,0 +1,261 @@
+/* ================== BODY & BACKGROUND ================== */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+body[data-theme="light"] {
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ================== LOGIN CARD ================== */
+.card {
+  position: relative;
+  background: #1a1a1a; /* lighter dark color */
+  width: 380px; /* slightly bigger */
+  padding: 55px 40px 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+  text-align: center;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: cardEnter 0.8s forwards;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+body[data-theme="light"] .card {
+  background: #fdfdfd;
+  color: #111;
+}
+
+/* ================== HEADINGS ================== */
+h2 {
+  margin-bottom: 8px;
+  font-size: 32px;
+  color: #ffcc00; /* brand color */
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+body[data-theme="light"] h2 {
+  color: #ff9900;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #aaa;
+  margin-bottom: 35px;
+  animation: fadeIn 1s ease;
+}
+
+body[data-theme="light"] .subtitle {
+  color: #555;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(-5px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+@keyframes cardEnter {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================== FLOATING LABEL INPUTS ================== */
+.field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 15px 18px;
+  border-radius: 12px;
+  border: 1px solid #555;
+  background: #222;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+body[data-theme="light"] input {
+  background: #f5f5f5;
+  color: #111;
+  border: 1px solid #ccc;
+}
+
+input:focus {
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 4px rgba(255,204,0,0.2);
+}
+
+label {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.25s ease all;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 14px;
+  font-size: 12px;
+  color: #ffcc00;
+  background: #1a1a1a;
+  padding: 0 4px;
+}
+
+body[data-theme="light"] input:focus + label,
+body[data-theme="light"] input:not(:placeholder-shown) + label {
+  color: #ff9900;
+  background: #fff;
+}
+
+/* ================== PASSWORD TOGGLE ================== */
+.toggle-password {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: #ffcc00;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ================== BUTTON ================== */
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffcc00, #ff9900);
+  color: #111;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-weight: 600;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255,204,0,0.4);
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+button:active::after {
+  width: 200%;
+  height: 500%;
+  transition: 0s;
+}
+
+/* ================== SPINNER ================== */
+.spinner {
+  width: 22px;
+  height: 22px;
+  margin: 15px auto 0;
+  border: 3px solid #555;
+  border-top: 3px solid #ffcc00;
+  border-radius: 50%;
+  animation: spin 1s linear infinite, fadeIn 0.3s ease;
+  display: none;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ================== ERROR MESSAGE ================== */
+#msg {
+  font-size: 13px;
+  min-height: 18px;
+  margin-top: 12px;
+  text-align: center;
+  color: #dc2626;
+}
+
+.error { animation: shake 0.35s ease; }
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* ================== PAGE EXIT ================== */
+.page-exit {
+  animation: pageOut 0.5s ease forwards;
+}
+
+@keyframes pageOut {
+  from { opacity:1; transform: scale(1); }
+  to { opacity:0; transform: scale(0.98); }
+}
+
+/* ================== THEME TOGGLE ================== */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffcc00;
+  user-select: none;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 420px) {
+  .card { width: 90%; padding: 45px 25px; }
+  input, button { padding: 12px; font-size: 14px; }
+}

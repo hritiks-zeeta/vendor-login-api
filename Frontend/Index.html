@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zolex Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</div>
+
+<div class="card">
+  <h2>Zolex</h2>
+  <p class="subtitle">Zeeta Electrical Engineering Pvt Ltd</p>
+
+  <div class="field">
+    <input id="userId" type="text" placeholder=" " />
+    <label for="userId">User ID</label>
+  </div>
+
+  <div class="field">
+    <input id="password" type="password" placeholder=" " />
+    <label for="password">Password</label>
+    <span class="toggle-password" onclick="togglePassword()">SHOW</span>
+  </div>
+
+  <button id="loginBtn" onclick="login()">Login</button>
+
+  <div class="spinner" id="spinner"></div>
+  <p id="msg"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
