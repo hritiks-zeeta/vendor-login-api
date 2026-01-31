@@ -1,11 +1,10 @@
 const { google } = require("googleapis");
-const path = require("path");
 
 const SPREADSHEET_ID = "1yqVmk-zfrbaweSntjXLD16RZgMb2lABcMqlA5Zk54a4";
-const SHEET_NAME = "UserDatabase"; // Sheet tab name
+const SHEET_NAME = "UserDatabase";
 
 const auth = new google.auth.GoogleAuth({
-  keyFile: path.join(__dirname, "credentials.json"),
+  credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
   scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 });
 
