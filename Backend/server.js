@@ -1,45 +1,31 @@
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
-const { loginUser } = require("./sheets");
+import express from "express";
+import cors from "cors";
+import fetch from "node-fetch";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend
-app.use(express.static(path.join(__dirname, "../Frontend")));
+const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
 
-// Login API
 app.post("/login", async (req, res) => {
   try {
     const { userId, password } = req.body;
 
-    if (!userId || !password) {
-      return res.status(400).json({
-        status: "error",
-        message: "UserID and Password are required"
-      });
-    }
-
-    const result = await loginUser(userId, password);
-    res.json(result);
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({
-      status: "error",
-      message: "Internal Server Error"
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, password })
     });
+
+    const data = await response.json();
+    res.json(data);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
   }
 });
 
-// ROOT ROUTE ✅
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../Frontend/Index.html"));
-});
-
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running"));
